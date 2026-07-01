@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chasing Aroma - Coffee, Recipes & Melodies</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cafe: {
+                            50: '#fdfbf7',
+                            100: '#f8f1e5',
+                            200: '#e1cca9',
+                            300: '#ca9e6a',
+                            400: '#b1743f',
+                            500: '#8c5027',
+                            600: '#733f1f',
+                            700: '#5a3018',
+                            800: '#422211',
+                            900: '#2d140a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark-glass {
+            background: rgba(45, 20, 10, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8f1e5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ca9e6a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b1743f;
+        }
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: rotate-slow 15s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-cafe-50 text-cafe-900 font-sans min-h-screen flex flex-col justify-between selection:bg-cafe-200 selection:text-cafe-800">
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-40 glassmorphism border-b border-cafe-200/50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-cafe-600 flex items-center justify-center text-cafe-100 shadow-md">
+                        <i class="fa-solid fa-mug-hot text-lg"></i>
+                    </div>
+                    <span class="font-serif text-2xl font-bold tracking-tight text-cafe-800">Chasing<span class="text-cafe-500 font-normal italic">Aroma</span></span>
+                </div>
+                <!-- Desktop Menu (SPA Navigation Links) -->
+                <div class="hidden md:flex items-center gap-8 font-medium">
+                    <a href="#home" class="text-cafe-850 hover:text-cafe-500 transition-colors" onclick="showPage('home')">Home</a>
+                    <a href="#about" class="text-cafe-850 hover:text-cafe-500 transition-colors" onclick="showPage('about')">Our Story</a>
+                    <a href="#menu" class="text-cafe-850 hover:text-cafe-500 transition-colors" onclick="showPage('menu')">Menu & DIY</a>
+                    <a href="#playlist" class="text-cafe-850 hover:text-cafe-500 transition-colors" onclick="showPage('playlist')">Lo-Fi Radio</a>
+                    <a href="#gallery" class="text-cafe-850 hover:text-cafe-500 transition-colors">Aesthetic Corner</a>
+                    <a href="#order" class="bg-cafe-600 text-cafe-100 px-5 py-2.5 rounded-full hover:bg-cafe-700 transition-all shadow-md hover:shadow-lg">Order Now</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-cafe-800 focus:outline-none p-2 rounded-lg hover:bg-cafe-100 transition-colors">
+                        <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Container -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-cafe-200 bg-cafe-100/95 absolute w-full left-0 p-4 space-y-3 shadow-lg">
+            <a href="#home" class="block py-2 px-3 rounded-lg hover:bg-cafe-200 text-cafe-800 transition-colors" onclick="showPage('home')">Home</a>
+            <a href="#about" class="block py-2 px-3 rounded-lg hover:bg-cafe-200 text-cafe-800 transition-colors" onclick="showPage('about')">Our Story</a>
+            <a href="#menu" class="block py-2 px-3 rounded-lg hover:bg-cafe-200 text-cafe-800 transition-colors" onclick="showPage('menu')">Menu & DIY</a>
+            <a href="#playlist" class="block py-2 px-3 rounded-lg hover:bg-cafe-200 text-cafe-800 transition-colors" onclick="showPage('playlist')">Lo-Fi Radio</a>
+            <a href="#gallery" class="block py-2 px-3 rounded-lg hover:bg-cafe-200 text-cafe-800 transition-colors">Aesthetic Corner</a>
+            <a href="#order" class="block text-center py-2.5 px-3 rounded-full bg-cafe-600 text-cafe-100 font-medium hover:bg-cafe-700 transition-colors">Order Now</a>
+        </div>
+    </nav>
+
+    <!-- Main Content Container with dynamic section visibility -->
+    <main>
+        <!-- Hero Section -->
+        <header id="home" class="relative overflow-hidden py-16 lg:py-24 bg-gradient-to-b from-cafe-100 to-cafe-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <!-- Text Content -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cafe-200 text-cafe-800 text-sm font-semibold tracking-wide shadow-sm">
+                            <i class="fa-solid fa-sparkles text-cafe-500 animate-pulse"></i> Bring the Café Experience Home
+                        </span>
+                        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-cafe-900 leading-tight">
+                            Chasing the Perfect Brew, <span class="italic text-cafe-500 underline decoration-cafe-300 decoration-wavy">Cherishing Every Moment</span>
+                        </h1>
+                        <p class="text-cafe-700 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                            Whether you seek the warm refuge of our physical slow-bar, quick deliveries of premium treats, or the sensory bliss of crafting barista-level brews in your own kitchen—we guide your ritual.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <a href="#menu" class="px-8 py-4 bg-cafe-600 text-cafe-100 rounded-full font-medium hover:bg-cafe-700 hover:scale-105 transition-all shadow-lg hover:shadow-cafe-500/30 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-book-open"></i> Explore Menu & DIY
+                            </a>
+                            <a href="#playlist" class="px-8 py-4 border-2 border-cafe-400 text-cafe-800 rounded-full font-medium hover:bg-cafe-200/50 hover:scale-105 transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-play"></i> Tune Into Radio
+                            </a>
+                        </div>
+                        <!-- Quick Stats -->
+                        <div class="grid grid-cols-3 gap-4 pt-6 max-w-md mx-auto lg:mx-0 border-t border-cafe-200/60">
+                            <div>
+                                <p class="font-serif text-2xl font-bold text-cafe-800">100%</p>
+                                <p class="text-xs text-cafe-600">Organic Arabica</p>
+                            </div>
+                            <div>
+                                <p class="font-serif text-2xl font-bold text-cafe-800">20+</p>
+                                <p class="text-xs text-cafe-600">DIY Guides</p>
+                            </div>
+                            <div>
+                                <p class="font-serif text-2xl font-bold text-cafe-800">4.9 ★</p>
+                                <p class="text-xs text-cafe-600">Google Rating</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Aesthetic Banner Images -->
+                    <div class="lg:col-span-5 flex justify-center relative">
+                        <div class="relative w-72 h-72 sm:w-96 sm:h-96">
+                            <div class="absolute -top-4 -left-4 w-72 h-72 bg-cafe-200 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-pulse"></div>
+                            <div class="absolute -bottom-8 -right-4 w-72 h-72 bg-amber-200 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-pulse"></div>
+                            <div class="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white transform hover:rotate-2 transition-transform duration-500">
+                                <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=600" 
+                                     alt="Aesthetic Pour Over Coffee" 
+                                     class="w-full h-full object-cover"
+                                     onerror="this.src='https://placehold.co/600x600/e1cca9/2d140a?text=Chasing+Aroma+Bar'">
+                                <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-4 rounded-xl shadow-lg">
+                                    <p class="text-xs text-cafe-500 font-bold tracking-wider uppercase">Weekly Spotlight</p>
+                                    <h3 class="font-serif text-lg font-bold text-cafe-950">Vanilla Caramel Macchiato</h3>
+                                    <p class="text-sm text-cafe-700">Velvety milk, artisan vanilla, double espresso, and rich caramel.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- About Us Section (Dynamic "About" Page) -->
+        <section id="about" class="py-20 bg-cafe-50 border-t border-cafe-200/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <!-- Left: Story Images -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <div class="h-64 rounded-2xl overflow-hidden shadow-lg">
+                                <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=400" alt="Specialty Roastery" class="w-full h-full object-cover">
+                            </div>
+                            <div class="h-40 bg-cafe-200 rounded-2xl flex flex-col justify-center items-center p-6 text-center text-cafe-900 shadow-sm">
+                                <span class="font-serif text-3xl font-bold">ESTD</span>
+                                <span class="font-sans text-sm tracking-widest font-bold uppercase mt-1">2021</span>
+                            </div>
+                        </div>
+                        <div class="space-y-4 pt-8">
+                            <div class="h-40 bg-cafe-600 text-cafe-100 rounded-2xl flex flex-col justify-center items-center p-6 text-center shadow-md">
+                                <i class="fa-solid fa-seedling text-3xl mb-2"></i>
+                                <p class="text-xs font-semibold uppercase tracking-widest">Ethical Sourcing</p>
+                            </div>
+                            <div class="h-64 rounded-2xl overflow-hidden shadow-lg">
+                                <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&q=80&w=400" alt="Barista Crafting Coffee" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Narrative content -->
+                    <div class="space-y-6">
+                        <span class="text-cafe-500 font-bold uppercase tracking-widest text-sm">Chasing Aroma's Philosophy</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-cafe-900 leading-tight">Driven by Scents, Guided by Soul</h2>
+                        <p class="text-cafe-700 leading-relaxed">
+                            Chasing Aroma was born from a simple obsession: that the smell of freshly roasted specialty coffee represents the absolute pinnacle of morning comfort. Founded in 2021, we set out to bridge the gap between world-class café environments and domestic kitchens.
+                        </p>
+                        <p class="text-cafe-700 leading-relaxed">
+                            We source single-origin organic coffee beans directly from ethical family micro-farms in Colombia, Ethiopia, and Sumatra. Each roast is dialled in to maximize sweetness and preserve delicate floral and fruity notes. But we didn't want the story to end at our espresso bar.
+                        </p>
+                        
+                        <!-- Core Pillars -->
+                        <div class="space-y-4 pt-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-cafe-200 flex items-center justify-center text-cafe-800 flex-shrink-0">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-cafe-950">Empowering Home Baristas</h4>
+                                    <p class="text-sm text-cafe-700">We share our proprietary recipes openly, ensuring anyone can brew the exact same standard at home.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-cafe-200 flex items-center justify-center text-cafe-800 flex-shrink-0">
+                                    <i class="fa-solid fa-earth-americas"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-cafe-950">Zero-Waste Footprint</h4>
+                                    <p class="text-sm text-cafe-700">All of our packaging is 100% compostable, and we repurpose used coffee grinds into localized organic fertilizers.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Menu & DIY Section -->
+        <section id="menu" class="py-20 bg-cafe-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
+                    <span class="text-cafe-500 font-bold uppercase tracking-widest text-sm">Taste is a Journey</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-cafe-900">Our Curated Menu & DIY Home Brews</h2>
+                    <p class="text-cafe-700">Choose to order from our fresh physical menu for quick local delivery, or follow our detailed aesthetic recipes to become your own barista at home.</p>
+                    
+                    <!-- Tab Switching -->
+                    <div class="inline-flex p-1.5 bg-cafe-200/60 rounded-full mt-4">
+                        <button id="tab-menu" class="px-6 py-2.5 rounded-full font-medium transition-all text-sm sm:text-base focus:outline-none bg-cafe-600 text-white shadow-sm" onclick="switchTab('menu')">
+                            <i class="fa-solid fa-store mr-2"></i> Our Café Menu
+                        </button>
+                        <button id="tab-diy" class="px-6 py-2.5 rounded-full font-medium transition-all text-sm sm:text-base focus:outline-none text-cafe-800 hover:text-cafe-600" onclick="switchTab('diy')">
+                            <i class="fa-solid fa-blender mr-2"></i> Make At Home (DIY)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Javascript will populate this based on tab selection -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Playlist Section -->
+        <section id="playlist" class="py-20 bg-cafe-900 text-cafe-100 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ca9e6a_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Playlist Info -->
+                    <div class="lg:col-span-5 space-y-6 text-center lg:text-left">
+                        <span class="text-cafe-300 font-bold uppercase tracking-widest text-sm">Acoustic Atmospheres</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white">Chasing Melodies, Chasing Coffee</h2>
+                        <p class="text-cafe-200 leading-relaxed">
+                            Sound completes the perfect sip. Listen to our handcrafted lo-fi and soft jazz station curated for working from home, reading a cozy book, or setting up a personal brewing station.
+                        </p>
+                        <div class="flex items-center gap-4 justify-center lg:justify-start pt-2">
+                            <span class="flex items-center gap-2 text-sm text-cafe-300">
+                                <i class="fa-solid fa-headphones"></i> Lo-Fi & Smooth Jazz
+                            </span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-cafe-400"></span>
+                            <span class="flex items-center gap-2 text-sm text-cafe-300">
+                                <i class="fa-solid fa-clock"></i> 24/7 Cozy Vibe
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Music Player Widget -->
+                    <div class="lg:col-span-7 flex justify-center">
+                        <div class="w-full max-w-lg dark-glass rounded-3xl p-6 sm:p-8 border border-cafe-700/50 shadow-2xl relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-cafe-400/20 rounded-full blur-3xl"></div>
+                            
+                            <div class="flex flex-col sm:flex-row items-center gap-6">
+                                <!-- Vinyl Record -->
+                                <div class="relative flex-shrink-0">
+                                    <div id="vinyl-disc" class="w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-stone-900 border-4 border-cafe-800 flex items-center justify-center shadow-lg relative overflow-hidden">
+                                        <div class="w-12 h-12 rounded-full bg-cafe-400 flex items-center justify-center border-2 border-stone-900 z-10">
+                                            <div class="w-3 h-3 rounded-full bg-stone-900"></div>
+                                        </div>
+                                        <div class="absolute inset-2 border border-stone-800 rounded-full opacity-60"></div>
+                                        <div class="absolute inset-4 border border-stone-700 rounded-full opacity-40"></div>
+                                        <div class="absolute inset-8 border border-stone-800 rounded-full opacity-60"></div>
+                                        <img id="player-album-art" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=200" alt="Album Art" class="absolute inset-0 w-full h-full object-cover opacity-40">
+                                    </div>
+                                    <div id="equalizer" class="absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-end gap-1 h-6 w-16 overflow-hidden hidden">
+                                        <span class="w-1 bg-cafe-400 h-2 rounded-t animate-[bounce_1s_infinite_100ms]"></span>
+                                        <span class="w-1 bg-cafe-400 h-4 rounded-t animate-[bounce_1s_infinite_300ms]"></span>
+                                        <span class="w-1 bg-cafe-300 h-1.5 rounded-t animate-[bounce_1s_infinite_500ms]"></span>
+                                        <span class="w-1 bg-cafe-400 h-5 rounded-t animate-[bounce_1s_infinite_200ms]"></span>
+                                        <span class="w-1 bg-cafe-300 h-3 rounded-t animate-[bounce_1s_infinite_400ms]"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Controls -->
+                                <div class="flex-1 w-full space-y-4 text-center sm:text-left">
+                                    <div>
+                                        <p class="text-xs text-cafe-300 font-bold uppercase tracking-wider">Now Playing</p>
+                                        <h3 id="player-title" class="text-lg sm:text-xl font-bold text-white truncate">Lo-Fi Café Breeze</h3>
+                                        <p id="player-artist" class="text-sm text-cafe-300 truncate">Chasing Aroma Beats</p>
+                                    </div>
+
+                                    <audio id="cafe-audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+                                    <div class="space-y-1">
+                                        <div class="relative w-full h-1.5 bg-cafe-850 rounded-full cursor-pointer overflow-hidden" id="progress-container">
+                                            <div id="progress-bar" class="absolute top-0 left-0 h-full bg-cafe-400 w-0 transition-all duration-100"></div>
+                                        </div>
+                                        <div class="flex justify-between text-xs text-cafe-400">
+                                            <span id="current-time">0:00</span>
+                                            <span id="duration-time">3:00</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-center sm:justify-start gap-6">
+                                        <button class="text-cafe-300 hover:text-white transition-colors text-lg" onclick="playPrevTrack()">
+                                            <i class="fa-solid fa-backward-step"></i>
+                                        </button>
+                                        <button id="btn-play-pause" class="w-12 h-12 rounded-full bg-cafe-400 text-cafe-900 flex items-center justify-center hover:scale-105 transition-transform shadow-lg hover:bg-cafe-300" onclick="togglePlay()">
+                                            <i class="fa-solid fa-play text-lg" id="play-pause-icon"></i>
+                                        </button>
+                                        <button class="text-cafe-300 hover:text-white transition-colors text-lg" onclick="playNextTrack()">
+                                            <i class="fa-solid fa-forward-step"></i>
+                                        </button>
+                                        <button id="btn-like" class="text-cafe-400 hover:text-red-500 transition-colors" onclick="toggleLike()">
+                                            <i class="fa-regular fa-heart text-lg" id="like-icon"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="flex items-center justify-center sm:justify-start gap-3 pt-2">
+                                        <i class="fa-solid fa-volume-low text-xs text-cafe-400"></i>
+                                        <input id="volume-slider" type="range" min="0" max="1" step="0.05" value="0.7" class="w-24 h-1 bg-cafe-850 rounded-lg appearance-none cursor-pointer accent-cafe-400">
+                                        <i class="fa-solid fa-volume-high text-xs text-cafe-400"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Playlist Selector -->
+                            <div class="mt-8 border-t border-cafe-700/60 pt-4">
+                                <p class="text-xs text-cafe-400 font-semibold mb-3">Curated Radio Stations:</p>
+                                <div class="space-y-2 max-h-36 overflow-y-auto pr-1" id="track-list-container">
+                                    <!-- Tracks populated dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Aesthetic Gallery Section -->
+        <section id="gallery" class="py-20 bg-cafe-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
+                    <span class="text-cafe-500 font-bold uppercase tracking-widest text-sm">Visual Inspiration</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-cafe-900">Aesthetic Corners & Crafts</h2>
+                    <p class="text-cafe-700">Explore the rustic and visual spaces we design. Let these visual recipes inspire your next morning coffee ritual or cozy afternoon setup.</p>
+                </div>
+
+                <!-- Grid Gallery with high-quality coffee and food photos -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="space-y-4">
+                        <div class="overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all group">
+                            <img class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                                 src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&q=80&w=400" 
+                                 alt="Cozy Coffee Pouring" 
+                                 onerror="this.src='https://placehold.co/400x300/e1cca9/2d140a?text=Coffee'">
+                        </div>
+                        <div class="overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all group">
+                            <img class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                                 src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&q=80&w=400" 
+                                 alt="Matcha Whisking" 
+                                 onerror="this.src='https://placehold.co/400x500/e1cca9/2d140a?text=Matcha'">
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all group">
+                            <img class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                                 src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&q=80&w=400" 
+                                 alt="Chasing Aroma Slow Bar" 
+                                 onerror="this.src='https://placehold.co/400x600/e1cca9/2d140a?text=Aroma+Bar'">
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all group">
+                            <img class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                                 src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=400" 
+                                 alt="Delicious Espresso Art" 
+                                 onerror="this.src='https://placehold.co/400x300/e1cca9/2d140a?text=Espresso'">
+                        </div>
+                        <div class="overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all group">
+                            <img class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                                 src="https://images.unsplash.com/photo-1517256064527-09c53b2d0bc6?auto=format&fit=crop&q=80&w=400" 
+                                 alt="Warm Sourdough Toast" 
+                                 onerror="this.src='https://placehold.co/400x400/e1cca9/2d140a?text=Pastry'">
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all group">
+                            <img class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                                 src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=400" 
+                                 alt="Journaling with Coffee" 
+                                 onerror="this.src='https://placehold.co/400x500/e1cca9/2d140a?text=Journaling'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order Form Section -->
+        <section id="order" class="py-20 bg-cafe-100">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-xl border border-cafe-200">
+                    <div class="text-center max-w-2xl mx-auto space-y-3 mb-8">
+                        <i class="fa-solid fa-paper-plane text-3xl text-cafe-500"></i>
+                        <h2 class="font-serif text-3xl font-bold text-cafe-900">Order from our Craft Kitchen</h2>
+                        <p class="text-cafe-700">Pick your favorite refreshments, specify instructions, and instantly generate a secure WhatsApp order straight to our counter.</p>
+                    </div>
+
+                    <form id="order-form" onsubmit="submitOrder(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Name input -->
+                            <div>
+                                <label for="order-name" class="block text-sm font-semibold text-cafe-800 mb-2">Your Name</label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-cafe-400">
+                                        <i class="fa-solid fa-user"></i>
+                                    </span>
+                                    <input type="text" id="order-name" required class="w-full pl-10 pr-4 py-3 bg-cafe-50 border border-cafe-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cafe-500 focus:bg-white text-sm" placeholder="e.g. Eleanor Vance">
+                                </div>
+                            </div>
+                            <!-- Phone input -->
+                            <div>
+                                <label for="order-phone" class="block text-sm font-semibold text-cafe-800 mb-2">WhatsApp Contact No.</label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-cafe-400">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </span>
+                                    <input type="tel" id="order-phone" required class="w-full pl-10 pr-4 py-3 bg-cafe-50 border border-cafe-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cafe-500 focus:bg-white text-sm" placeholder="e.g. +60123456789">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Item Selector -->
+                            <div>
+                                <label for="order-item" class="block text-sm font-semibold text-cafe-800 mb-2">Choose Drink / Dish</label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-cafe-400">
+                                        <i class="fa-solid fa-mug-hot"></i>
+                                    </span>
+                                    <select id="order-item" required class="w-full pl-10 pr-4 py-3 bg-cafe-50 border border-cafe-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cafe-500 focus:bg-white text-sm appearance-none">
+                                        <option value="" disabled selected>Select an item...</option>
+                                        <option value="Vanilla Caramel Macchiato">Vanilla Caramel Macchiato - $5.50</option>
+                                        <option value="Matcha Latte Cream">Matcha Latte Cream - $5.20</option>
+                                        <option value="Iced Americano">Iced Classic Americano - $4.00</option>
+                                        <option value="Butter Chocolate Croissant">Butter Chocolate Croissant - $4.50</option>
+                                        <option value="Sourdough Avocado Toast">Sourdough Avocado & Egg - $7.00</option>
+                                        <option value="Herbed Grilled Chicken">Herbed Grilled Chicken - $9.50</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Quantity -->
+                            <div>
+                                <label for="order-quantity" class="block text-sm font-semibold text-cafe-800 mb-2">Quantity</label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-cafe-400">
+                                        <i class="fa-solid fa-sort-numeric-up"></i>
+                                    </span>
+                                    <input type="number" id="order-quantity" min="1" max="10" value="1" required class="w-full pl-10 pr-4 py-3 bg-cafe-50 border border-cafe-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cafe-500 focus:bg-white text-sm">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Custom requests -->
+                        <div>
+                            <label for="order-notes" class="block text-sm font-semibold text-cafe-800 mb-2">Dietary Notes / Special Instructions</label>
+                            <textarea id="order-notes" rows="3" class="w-full p-4 bg-cafe-50 border border-cafe-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cafe-500 focus:bg-white text-sm" placeholder="e.g. Less sweet, extra ice, oat milk substitution..."></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="w-full py-4 bg-cafe-600 text-cafe-100 rounded-xl font-semibold shadow-lg hover:bg-cafe-700 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Send Order to WhatsApp
+                        </button>
+                    </form>
+
+                    <div id="order-success-msg" class="hidden mt-6 p-4 bg-green-100 border border-green-300 text-green-800 rounded-xl flex items-center gap-3">
+                        <i class="fa-solid fa-circle-check text-xl"></i>
+                        <div>
+                            <p class="font-semibold">Order Generated Successfully!</p>
+                            <p class="text-sm">Redirecting you to WhatsApp to complete checkout with our slow-bar coordinator...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Recipe Detail Modal -->
+    <div id="recipe-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-white w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl border border-cafe-200 flex flex-col max-h-[90vh]">
+            <!-- Header Image -->
+            <div class="relative h-48 sm:h-64 flex-shrink-0 bg-cafe-200">
+                <img id="modal-img" src="" alt="Recipe Detail" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-6">
+                    <div>
+                        <span class="px-3 py-1 bg-cafe-400 text-white text-xs font-bold rounded-full uppercase tracking-wider">Aroma DIY Steps</span>
+                        <h3 id="modal-title" class="font-serif text-2xl sm:text-3xl font-bold text-white mt-2">Dalgona Coffee</h3>
+                    </div>
+                </div>
+                <button onclick="closeRecipeModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/85 flex items-center justify-center text-cafe-900 hover:bg-white hover:scale-105 transition-all focus:outline-none">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <!-- Modal Content (Scrollable) -->
+            <div class="p-6 overflow-y-auto space-y-6">
+                <!-- Ingredients section -->
+                <div>
+                    <h4 class="font-serif text-lg font-bold text-cafe-900 border-b border-cafe-200 pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-basket-shopping text-cafe-500"></i> Ingredients Needed
+                    </h4>
+                    <ul id="modal-ingredients" class="list-disc pl-5 mt-3 space-y-1.5 text-cafe-850 text-sm sm:text-base">
+                        <!-- Dynamic list -->
+                    </ul>
+                </div>
+
+                <!-- Steps section -->
+                <div>
+                    <h4 class="font-serif text-lg font-bold text-cafe-900 border-b border-cafe-200 pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-list-ol text-cafe-500"></i> Preparation Method
+                    </h4>
+                    <ol id="modal-steps" class="list-decimal pl-5 mt-3 space-y-3 text-cafe-850 text-sm sm:text-base">
+                        <!-- Dynamic list -->
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 bg-cafe-50 border-t border-cafe-200/60 flex justify-end flex-shrink-0">
+                <button onclick="closeRecipeModal()" class="px-6 py-2.5 bg-cafe-600 text-cafe-100 rounded-full font-medium text-sm hover:bg-cafe-700 transition-all">
+                    Done & Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-cafe-900 text-cafe-300 pt-16 pb-8 border-t border-cafe-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <!-- Col 1: Brand -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-cafe-500 flex items-center justify-center text-white">
+                        <i class="fa-solid fa-mug-hot"></i>
+                    </div>
+                    <span class="font-serif text-xl font-bold text-white">Chasing<span class="text-cafe-300 italic font-normal">Aroma</span></span>
+                </div>
+                <p class="text-sm text-cafe-400">Crafting serene sensory spaces, custom coffee gear recommendations, and slow-burn acoustic audio playlists to elevate your day.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-8 h-8 rounded-full bg-cafe-800 hover:bg-cafe-600 text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-cafe-800 hover:bg-cafe-600 text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-cafe-800 hover:bg-cafe-600 text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-pinterest"></i></a>
+                </div>
+            </div>
+
+            <!-- Col 2: Info -->
+            <div class="space-y-4">
+                <h4 class="font-serif text-lg font-bold text-white">Visit Our Slow Bar</h4>
+                <ul class="space-y-2 text-sm text-cafe-400">
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cafe-500 mt-1"></i> 84 Aroma Boulevard, Section 12, Seattle, WA</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-cafe-500"></i> +1 (555) 902-8833</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-cafe-500"></i> hello@chasingaroma.com</li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Hours -->
+            <div class="space-y-4">
+                <h4 class="font-serif text-lg font-bold text-white">Brewing Hours</h4>
+                <ul class="space-y-2 text-sm text-cafe-400">
+                    <li>Monday - Friday: <span class="text-white font-medium">8:00 AM - 9:00 PM</span></li>
+                    <li>Saturday - Sunday: <span class="text-white font-medium">7:00 AM - 10:00 PM</span></li>
+                    <li class="text-cafe-500 font-semibold">*Closed during Thanksgiving & Christmas</li>
+                </ul>
+            </div>
+
+            <!-- Col 4: Newsletter -->
+            <div class="space-y-4">
+                <h4 class="font-serif text-lg font-bold text-white">The Coffee Digest</h4>
+                <p class="text-sm text-cafe-400">Get monthly aesthetic recipe kits, hand-picked beans suggestions, and lofi updates directly.</p>
+                <div id="newsletter-form" class="flex gap-2">
+                    <input type="email" id="news-email" placeholder="Your email address" class="px-4 py-2 bg-cafe-800 border border-cafe-700 rounded-lg focus:outline-none focus:border-cafe-500 text-sm flex-1 text-white">
+                    <button class="p-2 bg-cafe-600 hover:bg-cafe-500 rounded-lg text-white transition-colors" onclick="submitNewsletter()">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+                <p id="news-feedback" class="text-xs text-green-400 hidden">Thanks for subscribing!</p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-cafe-800 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-cafe-500 gap-4">
+            <p>&copy; 2026 Chasing Aroma Café. All Rights Reserved.</p>
+            <p>Made with deep <i class="fa-solid fa-heart text-red-500"></i> & fresh <i class="fa-solid fa-mug-hot text-cafe-500"></i> for specialty brewers.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts & Logic -->
+    <script>
+        // Data Store (Menu & DIY Recipes)
+        const products = [
+            {
+                id: 'p1',
+                type: 'menu',
+                title: 'Vanilla Caramel Macchiato',
+                description: 'Specialty Arabica double espresso blended with steamed milk, Madagascar vanilla syrup, and a heavy finish of drizzle caramel sauce.',
+                price: '$5.50',
+                image: 'https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&q=80&w=400',
+                rating: '4.9',
+                badge: 'Best Seller'
+            },
+            {
+                id: 'p2',
+                type: 'menu',
+                title: 'Matcha Latte Cream',
+                description: 'Ceremonial Grade Uji Matcha whisked gracefully, poured over cold creamy milk with a sweet cloud foam topper.',
+                price: '$5.20',
+                image: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&q=80&w=400',
+                rating: '4.8',
+                badge: 'Highly Rated'
+            },
+            {
+                id: 'p3',
+                type: 'menu',
+                title: 'Butter Chocolate Croissant',
+                description: 'Flaky, buttery French puff pastry layered, baked to golden crispness, filled with molten premium dark chocolate ganache.',
+                price: '$4.50',
+                image: 'https://images.unsplash.com/photo-1549778399-f94fd24d4697?auto=format&fit=crop&q=80&w=400',
+                rating: '4.7',
+                badge: 'Baked Fresh'
+            },
+            {
+                id: 'p4',
+                type: 'menu',
+                title: 'Sourdough Avocado Toast',
+                description: 'Toasted organic sourdough base topped with creamy smashed Haas avocado, warm poached farm egg, and red pepper flakes.',
+                price: '$7.00',
+                image: 'https://images.unsplash.com/photo-1541532713592-79a0317b6b77?auto=format&fit=crop&q=80&w=400',
+                rating: '4.9',
+                badge: 'Healthy Choice'
+            },
+            {
+                id: 'p5',
+                type: 'menu',
+                title: 'Iced Americano',
+                description: 'Pure double shot of specialty house espresso floating over cold filtered alkaline water and fresh mineral ice cubes.',
+                price: '$4.00',
+                image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&q=80&w=400',
+                rating: '4.6',
+                badge: 'Classic'
+            },
+            {
+                id: 'p6',
+                type: 'menu',
+                title: 'Herbed Grilled Chicken',
+                description: 'Tender sous-vide chicken breast marinated in fresh rosemary, garlic confit, roasted with fingerling potatoes.',
+                price: '$9.50',
+                image: 'https://images.unsplash.com/photo-1598103442097-8b74394b98c6?auto=format&fit=crop&q=80&w=400',
+                rating: '4.8',
+                badge: 'Gourmet'
+            },
+            // DIY Recipes (Home Brew guides)
+            {
+                id: 'd1',
+                type: 'diy',
+                title: 'Classic Dalgona Coffee',
+                description: 'Fluffy, thick whipped coffee cream suspended gracefully on sweet cold milk. Make this viral sensation easily at home.',
+                image: 'https://images.unsplash.com/photo-1582294103134-802c61df9e22?auto=format&fit=crop&q=80&w=400',
+                difficulty: 'Super Easy',
+                time: '5 Mins',
+                ingredients: [
+                    '2 tbsp Instant Coffee powder (pure)',
+                    '2 tbsp Granulated Sugar',
+                    '2 tbsp Hot water (boiling)',
+                    '200ml cold Whole Milk / Almond milk',
+                    'Crushed ice blocks'
+                ],
+                steps: [
+                    'In a mixing bowl, combine instant coffee powder, granulated sugar, and boiling hot water.',
+                    'Using a hand whisk or electric milk frother, whisk vigorously for 3 to 5 minutes until it changes into a golden, thick, stiff foam cream.',
+                    'Fill your aesthetic serving glass 3/4 full with clean ice cubes and cold milk.',
+                    'Gently spoon the whipped coffee cream onto the top of the milk to create a floating layer.',
+                    'Take a picture for your socials, stir thoroughly, and enjoy!'
+                ]
+            },
+            {
+                id: 'd2',
+                type: 'diy',
+                title: 'Aesthetic Iced Matcha Latte',
+                description: 'Master the gradient green-and-white look of artisan barista-grade matcha with perfect sweetness layers.',
+                image: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&q=80&w=400',
+                difficulty: 'Medium',
+                time: '7 Mins',
+                ingredients: [
+                    '1 tsp Ceremonial Grade Matcha powder',
+                    '2 tbsp Warm water (not boiling - approx. 80°C)',
+                    '1 tbsp Pure Honey or Vanilla simple syrup',
+                    '200ml Oat Milk or Soy Milk',
+                    'Large solid ice cubes'
+                ],
+                steps: [
+                    'Sift matcha powder into a shallow bowl to remove any fine clumps.',
+                    'Add warm water and use a bamboo whisk (Chasen) in a zigzag "W" motion until a beautiful jade foam develops.',
+                    'Drizzle honey or simple syrup at the bottom of your presentation glass.',
+                    'Add large solid ice cubes to support the pouring process.',
+                    'Slowly pour cold oat milk over the ice cubes.',
+                    'Carefully float the whisked matcha on top, creating a dramatic, beautiful green-to-white color gradient.'
+                ]
+            },
+            {
+                id: 'd3',
+                type: 'diy',
+                title: 'Barista Sourdough Avocado Toast',
+                description: 'The ultimate, visually stunning, high-protein brunch plate you can whip up in less than 10 minutes.',
+                image: 'https://images.unsplash.com/photo-1541532713592-79a0317b6b77?auto=format&fit=crop&q=80&w=400',
+                difficulty: 'Easy',
+                time: '10 Mins',
+                ingredients: [
+                    '1 slice Freshly baked rustic Sourdough bread',
+                    '1/2 ripe Haas Avocado',
+                    '1 Organic Farm Egg',
+                    '1 tsp Squeezed lemon juice',
+                    'Sea salt, cracked black pepper, chili flakes',
+                    'A touch of organic grass-fed butter'
+                ],
+                steps: [
+                    'Scoop avocado into a bowl. Mash roughly with fresh lemon juice, sea salt, and cracked black pepper.',
+                    'Spread butter on both sides of your artisan sourdough slice.',
+                    'Pan-sear the sourdough on a non-stick skillet over medium-high heat until deeply golden and crispy.',
+                    'Poach or scramble your farm egg to a soft, silky texture in a separate pan.',
+                    'Assemble by layering the mashed avocado generously over the hot toasted sourdough.',
+                    'Crown it with your soft-cooked egg. Dust with extra black pepper and red chili flakes.'
+                ]
+            }
+        ];
+
+        // Playlist Data
+        const tracks = [
+            {
+                id: 1,
+                title: "Chasing Aroma (Lo-Fi)",
+                artist: "Lofi Beats Cafe",
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+                albumArt: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=200"
+            },
+            {
+                id: 2,
+                title: "Espresso Whispers (Jazz Piano)",
+                artist: "Dusk Melody Trio",
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                albumArt: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&q=80&w=200"
+            },
+            {
+                id: 3,
+                title: "Raindrops & Pages",
+                artist: "Acoustic Vibe",
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+                albumArt: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=200"
+            }
+        ];
+
+        let currentTab = 'menu';
+        let currentTrackIndex = 0;
+        let isPlaying = false;
+        let isLiked = false;
+
+        // Elements
+        const catalogGrid = document.getElementById('catalog-grid');
+        const tabMenuBtn = document.getElementById('tab-menu');
+        const tabDiyBtn = document.getElementById('tab-diy');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        // Audio elements
+        const audio = document.getElementById('cafe-audio');
+        const btnPlayPause = document.getElementById('btn-play-pause');
+        const playPauseIcon = document.getElementById('play-pause-icon');
+        const progressBar = document.getElementById('progress-bar');
+        const progressContainer = document.getElementById('progress-container');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationTimeEl = document.getElementById('duration-time');
+        const playerTitle = document.getElementById('player-title');
+        const playerArtist = document.getElementById('player-artist');
+        const playerAlbumArt = document.getElementById('player-album-art');
+        const vinylDisc = document.getElementById('vinyl-disc');
+        const equalizer = document.getElementById('equalizer');
+        const volumeSlider = document.getElementById('volume-slider');
+        const btnLike = document.getElementById('btn-like');
+        const likeIcon = document.getElementById('like-icon');
+        const trackListContainer = document.getElementById('track-list-container');
+
+        // Initialization
+        window.onload = function() {
+            renderCatalog();
+            initPlaylist();
+            
+            // Mobile Menu
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                if (mobileMenu.classList.contains('hidden')) {
+                    menuIcon.className = "fa-solid fa-bars text-xl";
+                } else {
+                    menuIcon.className = "fa-solid fa-xmark text-xl";
+                }
+            });
+
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    menuIcon.className = "fa-solid fa-bars text-xl";
+                });
+            });
+
+            // Music Player Time Update
+            audio.addEventListener('timeupdate', updateProgress);
+            audio.addEventListener('loadedmetadata', setDuration);
+            audio.addEventListener('ended', playNextTrack);
+
+            // Volume adjustment
+            volumeSlider.addEventListener('input', (e) => {
+                audio.volume = e.target.value;
+            });
+
+            // Progress Bar Click
+            progressContainer.addEventListener('click', setProgress);
+        };
+
+        // Navigation Highlight & Scroll
+        function showPage(pageId) {
+            const target = document.getElementById(pageId);
+            if(target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Tab Switcher (Cafe Menu vs DIY)
+        function switchTab(tab) {
+            currentTab = tab;
+            if (tab === 'menu') {
+                tabMenuBtn.className = "px-6 py-2.5 rounded-full font-medium transition-all text-sm sm:text-base focus:outline-none bg-cafe-600 text-white shadow-sm";
+                tabDiyBtn.className = "px-6 py-2.5 rounded-full font-medium transition-all text-sm sm:text-base focus:outline-none text-cafe-800 hover:text-cafe-600";
+            } else {
+                tabDiyBtn.className = "px-6 py-2.5 rounded-full font-medium transition-all text-sm sm:text-base focus:outline-none bg-cafe-600 text-white shadow-sm";
+                tabMenuBtn.className = "px-6 py-2.5 rounded-full font-medium transition-all text-sm sm:text-base focus:outline-none text-cafe-800 hover:text-cafe-600";
+            }
+            renderCatalog();
+        }
+
+        // Render Catalog Content
+        function renderCatalog() {
+            catalogGrid.innerHTML = '';
+            const filteredItems = products.filter(item => item.type === currentTab);
+
+            filteredItems.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 border border-cafe-200/50 flex flex-col justify-between";
+
+                if (currentTab === 'menu') {
+                    card.innerHTML = `
+                        <div>
+                            <div class="relative h-56 overflow-hidden">
+                                <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300/e1cca9/2d140a?text=Chasing+Aroma'">
+                                <span class="absolute top-4 left-4 px-3 py-1 bg-cafe-600/90 text-white text-xs font-bold rounded-full shadow-sm">${item.badge}</span>
+                                <span class="absolute bottom-4 right-4 px-2.5 py-1 bg-white/90 backdrop-blur-sm text-cafe-900 text-xs font-bold rounded-lg flex items-center gap-1 shadow-sm">
+                                    <i class="fa-solid fa-star text-amber-500"></i> ${item.rating}
+                                </span>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <h3 class="font-serif text-xl font-bold text-cafe-950">${item.title}</h3>
+                                <p class="text-cafe-700 text-sm leading-relaxed">${item.description}</p>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-2 border-t border-cafe-100 flex items-center justify-between">
+                            <span class="font-serif text-lg font-bold text-cafe-800">${item.price}</span>
+                            <button onclick="selectToOrder('${item.title}')" class="px-5 py-2.5 bg-cafe-200 hover:bg-cafe-600 hover:text-white text-cafe-900 text-xs font-semibold rounded-full transition-all flex items-center gap-1.5">
+                                <i class="fa-solid fa-cart-shopping"></i> Order Now
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <div>
+                            <div class="relative h-56 overflow-hidden">
+                                <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300/e1cca9/2d140a?text=DIY+Recipe'">
+                                <span class="absolute top-4 left-4 px-3 py-1 bg-amber-600/90 text-white text-xs font-bold rounded-full shadow-sm">${item.difficulty}</span>
+                                <span class="absolute bottom-4 right-4 px-2.5 py-1 bg-white/90 backdrop-blur-sm text-cafe-900 text-xs font-bold rounded-lg flex items-center gap-1 shadow-sm">
+                                    <i class="fa-solid fa-clock text-cafe-500"></i> ${item.time}
+                                </span>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <h3 class="font-serif text-xl font-bold text-cafe-950">${item.title}</h3>
+                                <p class="text-cafe-700 text-sm leading-relaxed">${item.description}</p>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-2 border-t border-cafe-100">
+                            <button onclick="openRecipeModal('${item.id}')" class="w-full py-3 bg-cafe-600 text-cafe-100 text-xs font-semibold rounded-full hover:bg-cafe-700 transition-all flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-book-open"></i> View Guide Steps
+                            </button>
+                        </div>
+                    `;
+                }
+                catalogGrid.appendChild(card);
+            });
+        }
+
+        // Fill Form Choice & Scroll
+        function selectToOrder(itemName) {
+            const orderSection = document.getElementById('order');
+            const itemSelector = document.getElementById('order-item');
+            
+            for(let i = 0; i < itemSelector.options.length; i++) {
+                if(itemSelector.options[i].value === itemName) {
+                    itemSelector.selectedIndex = i;
+                    break;
+                }
+            }
+            orderSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Recipe Modal Handlers
+        function openRecipeModal(recipeId) {
+            const recipe = products.find(p => p.id === recipeId);
+            if (!recipe) return;
+
+            document.getElementById('modal-img').src = recipe.image;
+            document.getElementById('modal-title').innerText = recipe.title;
+
+            const ingList = document.getElementById('modal-ingredients');
+            ingList.innerHTML = '';
+            recipe.ingredients.forEach(ing => {
+                const li = document.createElement('li');
+                li.innerText = ing;
+                ingList.appendChild(li);
+            });
+
+            const stepList = document.getElementById('modal-steps');
+            stepList.innerHTML = '';
+            recipe.steps.forEach(step => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="font-semibold text-cafe-600">Step:</span> ${step}`;
+                stepList.appendChild(li);
+            });
+
+            document.getElementById('recipe-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeRecipeModal() {
+            document.getElementById('recipe-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Playlist Handlers
+        function initPlaylist() {
+            loadTrack(currentTrackIndex);
+            
+            trackListContainer.innerHTML = '';
+            tracks.forEach((track, index) => {
+                const trackRow = document.createElement('div');
+                trackRow.id = `track-${index}`;
+                trackRow.className = `flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition-all ${index === currentTrackIndex ? 'bg-cafe-800 border-l-4 border-cafe-400 text-white' : 'hover:bg-cafe-850/50 text-cafe-300'}`;
+                trackRow.onclick = () => selectTrack(index);
+
+                trackRow.innerHTML = `
+                    <div class="flex items-center gap-3 min-w-0">
+                        <img src="${track.albumArt}" alt="album" class="w-8 h-8 rounded object-cover">
+                        <div class="truncate">
+                            <h4 class="text-xs font-bold leading-none mb-1">${track.title}</h4>
+                            <p class="text-[10px] text-cafe-400 leading-none">${track.artist}</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-waveform text-xs text-cafe-400 ${index === currentTrackIndex && isPlaying ? 'block' : 'hidden'}" id="wave-${index}"></i>
+                `;
+                trackListContainer.appendChild(trackRow);
+            });
+        }
+
+        function loadTrack(index) {
+            const track = tracks[index];
+            audio.src = track.src;
+            playerTitle.innerText = track.title;
+            playerArtist.innerText = track.artist;
+            playerAlbumArt.src = track.albumArt;
+        }
+
+        function togglePlay() {
+            if (isPlaying) {
+                pauseTrack();
+            } else {
+                playTrack();
+            }
+        }
+
+        function playTrack() {
+            isPlaying = true;
+            audio.play().catch(err => console.log("User interaction required to play audio directly."));
+            playPauseIcon.className = "fa-solid fa-pause text-lg";
+            vinylDisc.classList.add('animate-spin-slow');
+            equalizer.classList.remove('hidden');
+            updateActiveTrackUI();
+        }
+
+        function pauseTrack() {
+            isPlaying = false;
+            audio.pause();
+            playPauseIcon.className = "fa-solid fa-play text-lg";
+            vinylDisc.classList.remove('animate-spin-slow');
+            equalizer.classList.add('hidden');
+            updateActiveTrackUI();
+        }
+
+        function selectTrack(index) {
+            currentTrackIndex = index;
+            loadTrack(index);
+            playTrack();
+        }
+
+        function playNextTrack() {
+            currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+            loadTrack(currentTrackIndex);
+            if (isPlaying) playTrack();
+            else updateActiveTrackUI();
+        }
+
+        function playPrevTrack() {
+            currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+            loadTrack(currentTrackIndex);
+            if (isPlaying) playTrack();
+            else updateActiveTrackUI();
+        }
+
+        function updateActiveTrackUI() {
+            tracks.forEach((_, idx) => {
+                const el = document.getElementById(`track-${idx}`);
+                const wave = document.getElementById(`wave-${idx}`);
+                if (el) {
+                    if (idx === currentTrackIndex) {
+                        el.className = "flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition-all bg-cafe-800 border-l-4 border-cafe-400 text-white";
+                        if (wave) wave.classList.toggle('hidden', !isPlaying);
+                    } else {
+                        el.className = "flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition-all hover:bg-cafe-850/50 text-cafe-300";
+                        if (wave) wave.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        function toggleLike() {
+            isLiked = !isLiked;
+            if (isLiked) {
+                likeIcon.className = "fa-solid fa-heart text-lg text-red-500";
+            } else {
+                likeIcon.className = "fa-regular fa-heart text-lg text-cafe-400";
+            }
+        }
+
+        function updateProgress(e) {
+            const { duration, currentTime } = e.srcElement;
+            if (!duration) return;
+            const progressPercent = (currentTime / duration) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+
+            // Update Time El
+            currentTimeEl.innerText = formatTime(currentTime);
+        }
+
+        function setDuration() {
+            durationTimeEl.innerText = formatTime(audio.duration || 180);
+        }
+
+        function setProgress(e) {
+            const width = this.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audio.duration;
+            if (duration) {
+                audio.currentTime = (clickX / width) * duration;
+            }
+        }
+
+        function formatTime(time) {
+            const mins = Math.floor(time / 60);
+            const secs = Math.floor(time % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // WhatsApp Order Logic
+        function submitOrder(e) {
+            e.preventDefault();
+            const name = document.getElementById('order-name').value;
+            const phone = document.getElementById('order-phone').value;
+            const item = document.getElementById('order-item').value;
+            const quantity = document.getElementById('order-quantity').value;
+            const notes = document.getElementById('order-notes').value;
+
+            const baseMessage = `*Chasing Aroma Order Form*\n\n` +
+                                `*Name:* ${name}\n` +
+                                `*WhatsApp Contact:* ${phone}\n` +
+                                `*Selected Item:* ${item}\n` +
+                                `*Quantity:* ${quantity}x\n` +
+                                `*Dietary/Special Instructions:* ${notes ? notes : 'None'}`;
+
+            const encodedMessage = encodeURIComponent(baseMessage);
+            const whatsappUrl = `https://wa.me/15559028833?text=${encodedMessage}`;
+
+            const successMsg = document.getElementById('order-success-msg');
+            successMsg.classList.remove('hidden');
+
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+                successMsg.classList.add('hidden');
+                document.getElementById('order-form').reset();
+            }, 2000);
+        }
+
+        // Newsletter subscription feedback
+        function submitNewsletter() {
+            const email = document.getElementById('news-email');
+            const feedback = document.getElementById('news-feedback');
+            if(email.value.trim() !== "") {
+                feedback.classList.remove('hidden');
+                email.value = "";
+                setTimeout(() => {
+                    feedback.classList.add('hidden');
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>
