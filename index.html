@@ -293,48 +293,6 @@
                     <div class="lg:col-span-7 flex justify-center">
                        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/11nSleISOWGLboWVWPDuwB?utm_source=generator&si=6b588a4cbd2a4d33" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
-                                <!-- Controls -->
-                                <div class="flex-1 w-full space-y-4 text-center sm:text-left">
-                                    <div>
-                                        <p class="text-xs text-cafe-300 font-bold uppercase tracking-wider">Now Playing</p>
-                                        <h3 id="player-title" class="text-lg sm:text-xl font-bold text-white truncate">Lo-Fi Café Breeze</h3>
-                                        <p id="player-artist" class="text-sm text-cafe-300 truncate">Chasing Aroma Beats</p>
-                                    </div>
-
-                                    <audio id="cafe-audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-
-                                    <div class="space-y-1">
-                                        <div class="relative w-full h-1.5 bg-cafe-850 rounded-full cursor-pointer overflow-hidden" id="progress-container">
-                                            <div id="progress-bar" class="absolute top-0 left-0 h-full bg-cafe-400 w-0 transition-all duration-100"></div>
-                                        </div>
-                                        <div class="flex justify-between text-xs text-cafe-400">
-                                            <span id="current-time">0:00</span>
-                                            <span id="duration-time">3:00</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex items-center justify-center sm:justify-start gap-6">
-                                        <button class="text-cafe-300 hover:text-white transition-colors text-lg" onclick="playPrevTrack()">
-                                            <i class="fa-solid fa-backward-step"></i>
-                                        </button>
-                                        <button id="btn-play-pause" class="w-12 h-12 rounded-full bg-cafe-400 text-cafe-900 flex items-center justify-center hover:scale-105 transition-transform shadow-lg hover:bg-cafe-300" onclick="togglePlay()">
-                                            <i class="fa-solid fa-play text-lg" id="play-pause-icon"></i>
-                                        </button>
-                                        <button class="text-cafe-300 hover:text-white transition-colors text-lg" onclick="playNextTrack()">
-                                            <i class="fa-solid fa-forward-step"></i>
-                                        </button>
-                                        <button id="btn-like" class="text-cafe-400 hover:text-red-500 transition-colors" onclick="toggleLike()">
-                                            <i class="fa-regular fa-heart text-lg" id="like-icon"></i>
-                                        </button>
-                                    </div>
-
-                                    <div class="flex items-center justify-center sm:justify-start gap-3 pt-2">
-                                        <i class="fa-solid fa-volume-low text-xs text-cafe-400"></i>
-                                        <input id="volume-slider" type="range" min="0" max="1" step="0.05" value="0.7" class="w-24 h-1 bg-cafe-850 rounded-lg appearance-none cursor-pointer accent-cafe-400">
-                                        <i class="fa-solid fa-volume-high text-xs text-cafe-400"></i>
-                                    </div>
-                                </div>
-                            </div>
 
                             <!-- Playlist Selector -->
                             <div class="mt-8 border-t border-cafe-700/60 pt-4">
